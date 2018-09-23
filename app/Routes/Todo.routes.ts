@@ -20,6 +20,7 @@ export default class TodoRoutes {
     app.route(this.apiUrl+'/tasks/:id').get(this.todoController.getTaskById);
 
     // update an existing task
+    app.route(this.apiUrl+'/tasks/:id').put(this.todoController.updateTask);
 
     // delete task
     app.route(this.apiUrl+'/tasks/:id').delete(this.todoController.deleteTask);

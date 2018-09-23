@@ -64,15 +64,17 @@ describe("Todo Rest API Tests", () => {
   // Update Todo
   describe('Update Todo', () => {
     it('should update the existing Todo', async () => {
-      let updatedTodo = {
+      let todoToUpdate = {
         title: 'update',
         description: 'updated description',
         done: true
       }
-      const resp = await request(app).put(`${url}/tasks/${testTodoId}`).send(updatedTodo);
+      const resp = await request(app).put(`${url}/tasks/${testTodoId}`).send(todoToUpdate);
+      let updatedTodo = resp.body.newTask;
+      delete(updatedTodo._id);
       expect(resp.status).toBe(200);
       expect(resp.body).toEqual(
-        expect.objectContaining(updatedTodo)
+        expect.objectContaining({status: "ok", newTask: updatedTodo})
       );
     });
   });
