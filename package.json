@@ -1,0 +1,39 @@
+{
+  "name": "todo-rest-api",
+  "version": "1.0.0",
+  "description": "to do rest api with type script",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "nodemon --exec \"mocha dist/test\"",
+    "build": "tsc",
+    "start": "node dist/app/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abid-2362/todo-rest-api-no-test.git"
+  },
+  "keywords": [
+    "todo",
+    "api"
+  ],
+  "author": "Eta Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abid-2362/todo-rest-api-no-test/issues"
+  },
+  "homepage": "https://github.com/abid-2362/todo-rest-api-no-test#readme",
+  "dependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.16.0",
+    "@types/mongoose": "^5.2.15",
+    "chai": "^4.1.2",
+    "express": "4.16.3",
+    "mongoose": "5.2.15",
+    "supertest": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "mocha": "^5.2.0",
+    "should": "^13.2.3"
+  }
+}

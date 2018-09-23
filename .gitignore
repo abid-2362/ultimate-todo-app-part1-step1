@@ -1,0 +1,11 @@
+# map files
+*.map*
+
+# node modules
+node_modules
+
+#avoid package lock JSON file
+package-lock.json
+
+#any extras
+-- extras
