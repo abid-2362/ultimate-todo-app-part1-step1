@@ -4,7 +4,7 @@
   "description": "to do rest api with type script",
   "main": "dist/server.js",
   "scripts": {
-    "test": "nodemon --exec \"mocha dist/test\"",
+    "test": "npx jest --watch",
     "build": "tsc",
     "start": "node dist/app/server.js"
   },
@@ -31,11 +31,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.2",
-    "@types/mocha": "^5.2.5",
-    "chai": "^4.1.2",
     "jest": "^23.6.0",
-    "mocha": "^5.2.0",
-    "should": "^13.2.3",
     "supertest": "^3.3.0",
     "ts-jest": "^23.10.1",
     "ts-node": "^7.0.1",
