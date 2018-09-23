@@ -17,6 +17,7 @@ export default class TodoRoutes {
     app.route(this.apiUrl+'/tasks').get(this.todoController.getAllTasks);
 
     // get task by id.
+    app.route(this.apiUrl+'/tasks/:id').get(this.todoController.getTaskById);
 
     // update an existing task
 

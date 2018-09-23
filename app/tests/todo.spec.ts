@@ -30,9 +30,7 @@ describe("Todo Rest API Tests", () => {
 
   describe("Get Todos", () => {
     it("Retrieve list of tasks", async () => {
-      console.log(`requesting to ${url}/tasks`);
       const res = await request(app).get(`${url}/tasks`);
-      // assert(res.status === 200);
       expect(res.status).toBe(200);
       expect(res.body).toEqual(
         expect.arrayContaining([expect.objectContaining({})])
@@ -42,8 +40,16 @@ describe("Todo Rest API Tests", () => {
 
   describe("Get TodoById", () => {
     it("checks if a specific task is being fetched properly", async () => {
-      console.log(testTodoId);
-      expect(1).toEqual(2);
+      // const res = await request(app).get(`${url}/tasks`);
+      // expect(res.status).toBe(200);
+      // expect(res.body).toEqual(
+      //   expect.arrayContaining([expect.objectContaining({})])
+      // );
+      const resp = await request(app).get(`${url}/tasks/${testTodoId}`);
+      expect(resp.status).toBe(200);
+      expect(resp.body).toEqual(
+        expect.objectContaining({})
+      );
     });
   });
 
