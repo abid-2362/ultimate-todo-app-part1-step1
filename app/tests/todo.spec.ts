@@ -10,12 +10,16 @@ const url = serverConfig.apiUrl;
 const app = require("../server");
 const request = require("supertest");
 const should = require("should");
-let testTodoId = mongoose.Types.ObjectId();
+// dynamic id generation creates problem, it stores 1 character ahead in database that is why,
+// the delete request failed every time.
+// const testTodoId = mongoose.Types.ObjectId();
+//  so the solution is to hardcode a generated id into the code for testing purpose.
+const testTodoId = "5ba7b664750cf529f001a2d1";
 
 describe("Todo Rest API Tests", () => {
   beforeAll(async () => {
     let testTodo = {
-      id: testTodoId,
+      _id: testTodoId,
       title: "Testing Todo",
       description: "Testing Todo Description",
       done: false
@@ -39,13 +43,15 @@ describe("Todo Rest API Tests", () => {
   describe("Get TodoById", () => {
     it("checks if a specific task is being fetched properly", async () => {
       console.log(testTodoId);
+      expect(1).toEqual(2);
     });
   });
 
   // Delete a Todo
   describe("Delete a Todo", () => {
-    it('should delete the demo todo', () => {
-      const resp = require(app).delete(`${url}/tasks/${testTodoId}`);
+    it('should delete the demo todo', async () => {
+      console.log(testTodoId);
+      const resp = await request(app).delete(`${url}/tasks/${testTodoId}`);
       expect(resp.body).toEqual(
         expect.objectContaining({status: "ok"})
       );
