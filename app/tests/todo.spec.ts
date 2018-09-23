@@ -22,10 +22,10 @@ let testTodo = {
   done: false
 };
 describe("Todo Rest API Tests", () => {
-  beforeAll(async () => {
-    let newTodo = new Todo(testTodo);
-    await newTodo.save();
-  });
+  // beforeAll(async () => {
+  //   let newTodo = new Todo(testTodo);
+  //   await newTodo.save();
+  // });
 
   // Create a new Todo
   describe('Create a new Todo', () => {
@@ -34,7 +34,7 @@ describe("Todo Rest API Tests", () => {
       expect(resp.status).toBe(200);
       // should return the same todo which we have just passed it to be created
       expect(resp.body).toEqual(
-        expect.objectContaining(testTodo)
+        expect.objectContaining({_id: testTodo._id, title: testTodo.title, description: testTodo.description})
       );
     });
   });

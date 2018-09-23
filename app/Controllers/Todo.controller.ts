@@ -3,7 +3,17 @@ import { Request, Response } from "express";
 
 export default class TodoController {
   public createNewTask(req: Request, res: Response) {
-    // res.send('welcome');
+    let newTodo = new Todo();
+    if(req.body._id) {
+      newTodo._id = req.body._id;
+    }
+    newTodo.title = req.body.title;
+    newTodo.description = req.body.description;
+    newTodo.save((err, todo) => {
+      if (err) res.send(err);
+
+      res.send(todo);
+    });
   }
 
   public getAllTasks(req: Request, res: Response) {
