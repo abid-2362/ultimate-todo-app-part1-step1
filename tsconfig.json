@@ -11,6 +11,6 @@
     "sourceMap": true,
     "lib": ["es6"]
   },
-  "include": ["./app/**/*.ts", "./test/**/*.ts"],
+  "include": ["./app/**/*.ts"],
   "exclude": ["node_modules"]
 }
