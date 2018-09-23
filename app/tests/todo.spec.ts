@@ -15,19 +15,31 @@ const should = require("should");
 // const testTodoId = mongoose.Types.ObjectId();
 //  so the solution is to hardcode a generated id into the code for testing purpose.
 const testTodoId = "5ba7b664750cf529f001a2d1";
-
+let testTodo = {
+  _id: testTodoId,
+  title: "Testing Todo",
+  description: "Testing Todo Description",
+  done: false
+};
 describe("Todo Rest API Tests", () => {
   beforeAll(async () => {
-    let testTodo = {
-      _id: testTodoId,
-      title: "Testing Todo",
-      description: "Testing Todo Description",
-      done: false
-    };
     let newTodo = new Todo(testTodo);
     await newTodo.save();
   });
 
+  // Create a new Todo
+  describe('Create a new Todo', () => {
+    it('should create a new todo and return it', async () => {
+      const resp = await request(app).post(`${url}/tasks`).send(testTodo);
+      expect(resp.status).toBe(200);
+      // should return the same todo which we have just passed it to be created
+      expect(resp.body).toEqual(
+        expect.objectContaining(testTodo)
+      );
+    });
+  });
+
+  // get all todos
   describe("Get Todos", () => {
     it("Retrieve list of tasks", async () => {
       const res = await request(app).get(`${url}/tasks`);
@@ -38,13 +50,9 @@ describe("Todo Rest API Tests", () => {
     });
   });
 
+  // get todo by id
   describe("Get TodoById", () => {
     it("checks if a specific task is being fetched properly", async () => {
-      // const res = await request(app).get(`${url}/tasks`);
-      // expect(res.status).toBe(200);
-      // expect(res.body).toEqual(
-      //   expect.arrayContaining([expect.objectContaining({})])
-      // );
       const resp = await request(app).get(`${url}/tasks/${testTodoId}`);
       expect(resp.status).toBe(200);
       expect(resp.body).toEqual(

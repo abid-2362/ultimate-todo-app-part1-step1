@@ -20,7 +20,18 @@ export default class TodoController {
   }
 
   public getTaskById(req: Request, res: Response) {
-
+    let taskId = req.params.id;
+    let query = Todo.findById(taskId);
+    query.select("_id title description done");
+    query.exec((err, todo) => {
+      if (err)
+        res.send({ status: 'error', message: 'Error in fetching your result'})
+      else if(todo === null) {
+        res.send({ status: 'error', message: 'No task found'} );
+      } else {
+        res.send(todo);
+      }
+    });
   }
 
   public deleteTask(req: Request, res: Response) {
