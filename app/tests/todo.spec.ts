@@ -61,6 +61,22 @@ describe("Todo Rest API Tests", () => {
     });
   });
 
+  // Update Todo
+  describe('Update Todo', () => {
+    it('should update the existing Todo', async () => {
+      let updatedTodo = {
+        title: 'update',
+        description: 'updated description',
+        done: true
+      }
+      const resp = await request(app).put(`${url}/tasks/${testTodoId}`).send(updatedTodo);
+      expect(resp.status).toBe(200);
+      expect(resp.body).toEqual(
+        expect.objectContaining(updatedTodo)
+      );
+    });
+  });
+
   // Delete a Todo
   describe("Delete a Todo", () => {
     it('should delete the demo todo', async () => {
