@@ -1,2 +1,3 @@
 # Todo Rest API in TpyeScript and NodeJS
-Boilerplate to start implementing the REST API in typescript with TDD Approach
+Ultimate Todo App
+Part 1 Step 1. Todo Rest API using MongoDB with NodeJS

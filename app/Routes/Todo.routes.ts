@@ -11,9 +11,10 @@ export default class TodoRoutes {
 
   public routes(app: Express.Application) {
     // to create a new task, post request
-    // app.route(this.apiUrl+'/tasks').post(this.todoController.createNewTask)
+    app.route(this.apiUrl+'/tasks').post(this.todoController.createNewTask);
 
     // to retrieve all tasks, get request
+    app.route(this.apiUrl+'/tasks').get(this.todoController.getAllTasks);
 
     // get task by id.
 
