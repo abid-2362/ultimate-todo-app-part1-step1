@@ -49,7 +49,7 @@ export default class TodoController {
     query.select("_id title description done");
     query.exec((err, todo) => {
       if (err)
-        res.send({ status: "error", message: "Error in fetching your result" });
+        res.send({ status: "error", message: "invalid id" });
       else if (todo === null) {
         res.send({ status: "error", message: "No task found" });
       } else {
