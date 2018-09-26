@@ -76,6 +76,15 @@ describe("Todo Rest API Tests", () => {
         expect.objectContaining({})
       );
     });
+
+    it("returns error if id is not found or invalid", async () => {
+      let invalidId = "123123123";
+      const resp = await request(app).get(`${url}/tasks/${invalidId}`);
+      expect(resp.status).toBe(200);
+      expect(resp.body).toEqual(
+        expect.objectContaining({status: "error", message: "invalid id"})
+      );
+    });
   });
 
   // Update Todo
