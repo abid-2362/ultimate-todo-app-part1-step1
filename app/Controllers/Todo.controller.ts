@@ -48,8 +48,7 @@ export default class TodoController {
     let query = Todo.findById(taskId);
     query.select("_id title description done");
     query.exec((err, todo) => {
-      if (err)
-        res.send({ status: "error", message: "invalid id" });
+      if (err) res.send({ status: "error", message: "invalid id" });
       else if (todo === null) {
         res.send({ status: "error", message: "No task found" });
       } else {
@@ -74,24 +73,38 @@ export default class TodoController {
 
   public updateTask(req: Request, res: Response) {
     let taskId = req.params.id;
-    let task: todoTemplate = {
-      title: req.body.title,
-      description: req.body.description,
-      done: req.body.done
-    };
-    Todo.findByIdAndUpdate(
-      taskId,
-      task,
-      { new: true, select: "_id title description done" },
-      (err, result) => {
-        if (err)
-          res.send({
-            status: "error",
-            message: "We are unable to save this task. please try later"
-          });
-        else
-          res.send({ status: "ok", message: "Task Updated", newTask: result });
-      }
-    );
+    let { title, description, done } = req.body;
+    if (!title || !description || !done) {
+      res.send({
+        status: "error",
+        message:
+          "invalid update request. title, description or done status is missing"
+      });
+      return;
+    } else {
+      let task: todoTemplate = {
+        title: title,
+        description: description,
+        done: done
+      };
+      Todo.findByIdAndUpdate(
+        taskId,
+        task,
+        { new: true, select: "_id title description done" },
+        (err, result) => {
+          if (err)
+            res.send({
+              status: "error",
+              message: "We are unable to save this task. please try later"
+            });
+          else
+            res.send({
+              status: "ok",
+              message: "Task Updated",
+              newTask: result
+            });
+        }
+      );
+    }
   }
 }
