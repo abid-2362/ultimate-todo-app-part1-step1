@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx jest --watch",
     "build": "tsc",
-    "start": "node dist/app/server.js"
+    "prestart": "npm run build",
+    "start": "node dist/server.js"
   },
   "repository": {
     "type": "git",

@@ -12,19 +12,36 @@ let testTodo = {
   description: "Testing Todo Description",
   done: false
 };
+
 describe("Todo Rest API Tests", () => {
 
-  // Create a new Todo
-  describe('Create a new Todo', () => {
-    it('should create a new todo and return it', async () => {
-      const resp = await request(app).post(`${url}/tasks`).send(testTodo);
-      expect(resp.status).toBe(200);
-      // should return the same todo which we have just passed it to be created
-      expect(resp.body).toEqual(
-        expect.objectContaining({_id: testTodo._id, title: testTodo.title, description: testTodo.description})
-      );
+  describe('Create  New Todo', () => {
+    // Create a new Todo
+    describe('Create a new Todo', () => {
+      it('should pass if todo is created successfully', async () => {
+        const resp = await request(app).post(`${url}/tasks`).send(testTodo);
+        expect(resp.status).toBe(200);
+        // should return the same todo which we have just passed it to be created
+        expect(resp.body).toEqual(
+          expect.objectContaining({_id: testTodo._id, title: testTodo.title, description: testTodo.description})
+        );
+      });
+    });
+
+    describe('Create New Todo Error', () => {
+      it('should return error if title is missing in request', async () => {
+        let todo = JSON.parse(JSON.stringify(testTodo));
+        delete todo.title;
+        const resp = await request(app).post(`${url}/tasks`).send(todo);
+        expect(resp.status).toBe(200);
+        // should return the same todo which we have just passed it to be created
+        expect(resp.body).toEqual(
+          expect.objectContaining({status: "error"})
+        );
+      })
     });
   });
+
 
   // get all todos
   describe("Get Todos", () => {
@@ -69,18 +86,10 @@ describe("Todo Rest API Tests", () => {
   // Delete a Todo
   describe("Delete a Todo", () => {
     it('should delete the demo todo', async () => {
-      console.log(testTodoId);
       const resp = await request(app).delete(`${url}/tasks/${testTodoId}`);
       expect(resp.body).toEqual(
         expect.objectContaining({status: "ok"})
       );
-    });
-  });
-
-  afterAll(async () => {
-    Todo.findByIdAndDelete(testTodoId, function(err, result) {
-      if (err) console.log('error in deleting test todo ->', err);
-      else console.log("test completed",result);
     });
   });
 });
