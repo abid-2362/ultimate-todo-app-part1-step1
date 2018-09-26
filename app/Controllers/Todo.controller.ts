@@ -16,7 +16,7 @@ export default class TodoController {
     const { title, description } = req.body;
     newTodo.title = req.body.title;
     newTodo.description = req.body.description;
-    if (title.length < 1 || description.length < 1) {
+    if (!title || !description) {
       res.send({
         status: "error",
         message:
