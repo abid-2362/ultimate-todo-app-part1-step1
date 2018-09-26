@@ -28,3 +28,5 @@ Jest is used for testing purposes with supertest
 5. /todo/api/v1.0/tasks/:id
 
 *Completed By Abid Ali.*
+
+Tests written in Jest, use `npm test` or `npx jest` to run the tests

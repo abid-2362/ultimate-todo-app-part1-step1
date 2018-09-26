@@ -113,6 +113,27 @@ describe("Todo Rest API Tests", () => {
         expect.objectContaining({status: "error"})
       );
     });
+
+    it('should return error and not update if description is missing', async () => {
+      let invalidUpdate = JSON.parse(JSON.stringify(todoToUpdate));
+      delete invalidUpdate.description;
+      const resp = await request(app).put(`${url}/tasks/${testTodoId}`).send(invalidUpdate);
+      expect(resp.status).toBe(200);
+      expect(resp.body).toEqual(
+        expect.objectContaining({status: "error"})
+      );
+    });
+
+    it('should return error and not update if done status is missing', async () => {
+      let invalidUpdate = JSON.parse(JSON.stringify(todoToUpdate));
+      delete invalidUpdate.done;
+      const resp = await request(app).put(`${url}/tasks/${testTodoId}`).send(invalidUpdate);
+      expect(resp.status).toBe(200);
+      expect(resp.body).toEqual(
+        expect.objectContaining({status: "error"})
+      );
+    });
+
   });
 
   // Delete a Todo
