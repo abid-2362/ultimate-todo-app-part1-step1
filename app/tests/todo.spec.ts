@@ -89,18 +89,28 @@ describe("Todo Rest API Tests", () => {
 
   // Update Todo
   describe('Update Todo', () => {
+    let todoToUpdate = {
+      title: 'update',
+      description: 'updated description',
+      done: true
+    };
     it('should update the existing Todo', async () => {
-      let todoToUpdate = {
-        title: 'update',
-        description: 'updated description',
-        done: true
-      }
       const resp = await request(app).put(`${url}/tasks/${testTodoId}`).send(todoToUpdate);
       let updatedTodo = resp.body.newTask;
       delete(updatedTodo._id);
       expect(resp.status).toBe(200);
       expect(resp.body).toEqual(
         expect.objectContaining({status: "ok", newTask: updatedTodo})
+      );
+    });
+
+    it('should return error and not update if title is missing', async () => {
+      let invalidUpdate = JSON.parse(JSON.stringify(todoToUpdate));
+      delete invalidUpdate.title;
+      const resp = await request(app).put(`${url}/tasks/${testTodoId}`).send(invalidUpdate);
+      expect(resp.status).toBe(200);
+      expect(resp.body).toEqual(
+        expect.objectContaining({status: "error"})
       );
     });
   });
